@@ -4,6 +4,7 @@
 - [Selection Expressions](#-selection-expressions-)
 - [Message Expressions](#-message-expressions-)
 - [Link Expressions](#-link-expressions-)
+- [Fragment Expressions](#-fragment-expressions-)
 
 
 ## 🌿 What is **Thymeleaf**?
@@ -484,3 +485,110 @@ the rendered output becomes:
 * Works perfectly across environments (local, staging, production).
 
 ---
+
+## 🧩 **Fragment Expressions (`~{...}`)**
+
+### 📘 **Definition**
+
+**Fragment Expressions** in Thymeleaf are used to **define and reuse parts of HTML templates** — such as headers, footers, or navigation bars.
+
+They make your web pages more **modular, reusable, and maintainable** by allowing you to include the same fragment across multiple pages.
+
+---
+
+### 🧩 **Syntax**
+
+```html
+~{fragmentName}
+```
+
+You can also reference fragments defined in another template:
+
+```html
+~{templateName :: fragmentName}
+```
+
+---
+
+### ⚙️ **How to Use Fragment Expressions**
+
+There are **three main ways** to include fragments:
+
+| Method       | Description                                         | Example                                                  |
+| ------------ | --------------------------------------------------- | -------------------------------------------------------- |
+| `th:insert`  | Inserts the fragment *inside* the current tag       | `<div th:insert="~{fragments/header :: header}"></div>`  |
+| `th:replace` | Replaces the *entire current tag* with the fragment | `<div th:replace="~{fragments/header :: header}"></div>` |
+| `th:include` | *(Deprecated)* Older syntax — avoid using           | `<div th:include="~{fragments/header :: header}"></div>` |
+
+---
+
+### 🧱 **Example 1: Defining a Fragment**
+
+**📄 File:** `fragments/header.html`
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="header">
+      <h1>Welcome to Student Portal</h1>
+      <hr/>
+    </div>
+  </body>
+</html>
+```
+
+---
+
+### 🧱 **Example 2: Using a Fragment in Another Template**
+
+**📄 File:** `students.html`
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Students List</title>
+</head>
+<body>
+
+  <!-- Include Header Fragment -->
+  <div th:replace="~{fragments/header :: header}"></div>
+
+  <h2>Student Details</h2>
+  <p>List of students will appear here...</p>
+
+</body>
+</html>
+```
+
+✅ **Rendered Output:**
+
+```html
+<h1>Welcome to Student Portal</h1>
+<hr>
+<h2>Student Details</h2>
+<p>List of students will appear here...</p>
+```
+
+---
+
+### 🧠 **When to Use Which**
+
+| Use Case                                                    | Recommended Attribute     |
+| ----------------------------------------------------------- | ------------------------- |
+| When you want to include content **inside** an existing tag | `th:insert`               |
+| When you want to **replace** the tag entirely               | `th:replace`              |
+| When working with **legacy** templates                      | `th:include` (deprecated) |
+
+---
+
+### 💡 **Benefits of Using Fragments**
+
+* Avoids repeating common HTML code (header, footer, sidebar).
+* Keeps templates **clean and organized**.
+* Makes maintenance and updates much easier.
+
+---
+
+
