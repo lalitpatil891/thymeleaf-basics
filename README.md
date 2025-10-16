@@ -6,6 +6,7 @@
 - [Link Expressions](#-link-expressions-)
 - [Fragment Expressions](#-fragment-expressions-)
 - [The `th:each` Attribute](#-the-theach-attribute)
+- [The `th:each` Attribute – Status Variable](#-the-theach-attribute--status-variable)
 
 ## 🌿 What is **Thymeleaf**?
 
@@ -708,6 +709,130 @@ You can also access **loop status variables** like index using:
 | `iterStat`   | Loop status (index, count, etc.) | `${iterStat.index}`               |
 
 ---
+## 🧭 **The `th:each` Attribute – Status Variable**
+
+### 📘 **Definition**
+
+When you use `th:each` in Thymeleaf, you can define a **status variable** that provides information about the **current iteration state** — such as index, count, first, last, etc.
+
+It’s extremely useful when you want to show **row numbers, alternate colors**, or **conditional formatting** in tables.
+
+---
+
+### 🧩 **Syntax**
+
+```html
+th:each="item, iterStat : ${collection}"
+```
+
+✅ Here:
+
+* `item` → the current element of the loop
+* `iterStat` → the **status variable** (can be any name you choose)
+
+---
+
+### 🧮 **Available Properties of the Status Variable**
+
+| Property  | Description                             | Example Output |
+| --------- | --------------------------------------- | -------------- |
+| `index`   | Zero-based index (starts from 0)        | 0, 1, 2, 3     |
+| `count`   | One-based index (starts from 1)         | 1, 2, 3, 4     |
+| `size`    | Total number of elements                | 4              |
+| `even`    | `true` if the current iteration is even | true/false     |
+| `odd`     | `true` if the current iteration is odd  | true/false     |
+| `first`   | `true` if it’s the first iteration      | true/false     |
+| `last`    | `true` if it’s the last iteration       | true/false     |
+| `current` | The current iterated object             | same as item   |
+
+---
+
+### 💻 **Example: Display Student List with Serial Number**
+
+**📄 Controller (Java):**
+
+```java
+@GetMapping("/students")
+public String listStudents(Model model) {
+    List<Student> students = List.of(
+        new Student(101, "Pankaj", "pankaj@gmail.com", "72375127"),
+        new Student(102, "Aman", "aman@gmail.com", "52138618236"),
+        new Student(103, "Jaynam", "jaynam@gmail.com", "98979797987"),
+        new Student(104, "Vijay", "vijay@gmail.com", "125715275")
+    );
+
+    model.addAttribute("students", students);
+    return "studentList";
+}
+```
+
+---
+
+**📄 Thymeleaf Template (studentList.html):**
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student List with Status Variable</title>
+</head>
+<body>
+  <h2>Student List (Using th:each Status Variable)</h2>
+
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>Sr. No</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="student, studentStat : ${students}">
+        <td th:text="${studentStat.count}"></td>
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.email}"></td>
+        <td th:text="${student.phone}"></td>
+        <td>
+          <button>Edit</button>
+          <button>Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
+```
+
+---
+
+### ✅ **Output Example**
+
+| Sr.No | ID  | Name   | Email                                       | Contact     | Action        |
+| ----- | --- | ------ | ------------------------------------------- | ----------- | ------------- |
+| 1     | 101 | Pankaj | [pankaj@gmail.com](mailto:pankaj@gmail.com) | 72375127    | Edit / Delete |
+| 2     | 102 | Aman   | [aman@gmail.com](mailto:aman@gmail.com)     | 52138618236 | Edit / Delete |
+| 3     | 103 | Jaynam | [jaynam@gmail.com](mailto:jaynam@gmail.com) | 98979797987 | Edit / Delete |
+| 4     | 104 | Vijay  | [vijay@gmail.com](mailto:vijay@gmail.com)   | 125715275   | Edit / Delete |
+
+---
+
+### 💡 **Tip**
+
+You can use the status variable to highlight alternate rows:
+
+```html
+<tr th:each="student, stat : ${students}"
+    th:class="${stat.even} ? 'even-row' : 'odd-row'">
+```
+
+---
+
 
 
 

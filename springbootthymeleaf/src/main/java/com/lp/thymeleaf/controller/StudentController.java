@@ -17,8 +17,10 @@ public class StudentController {
         Student s1 = new Student(1, "Lalit", "lalit@gmail.com", "7038898323");
         Student s2 = new Student(2, "Sunil", "sunil@gmail.com", "1234556778");
         Student s3 = new Student(3, "Mayur", "mayur@gmail.com", "9876543212");
+        Student s4 = new Student(4, "Aman", "aman@gmail.com", "52138618236");
+        Student s5 = new Student(103, "Jaynam", "jaynam@gmail.com", "98979797987");
 
-        List<Student> list = new ArrayList<>(List.of(s1,s2,s3));
+        List<Student> list = new ArrayList<>(List.of(s1,s2,s3,s4,s5));
 
         model.addAttribute("students", list);
 

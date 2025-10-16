@@ -5,19 +5,20 @@
     <title>Student List</title>
 </head>
 <body>
-        <h1>Student list</h1>
+        <h2>Student List (Using th:each Status Variable)</h2>
 
-        <table border="1" cellspacing="0" cellpadding="10">
+        <table border="1" cellpadding="8">
             <tr>
                 <th colspan="5">Students 2025</th>
             </tr>
             <tr>
-                <th>Id</th> <th>Name</th> <th>Email</th> <th>Contact</th>  <th>Actions</th>
+                <th>Sr.No</th> <th>Name</th> <th>Email</th> <th>Contact</th>  <th>Action</th>
             </tr>
 
-            <tr th:each="student : ${students}">
+            <tr th:each="student, studentStat : ${students}">
 
-                <td th:text="${student.id}"></td>
+<!--                <td th:text="${student.id}"></td>-->
+                <td th:text="${studentStat.count}"></td>
                 <td th:text="${student.name}"></td>
                 <td th:text="${student.email}"></td>
                 <td th:text="${student.contact}"></td>
