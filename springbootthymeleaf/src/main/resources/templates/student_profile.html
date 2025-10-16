@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile</title>
+</head>
+<body>
+      <h1>Student profile</h1>
+      <!--1. use th:obejct and 2. *{attributeName}-->
+      <ul th:object="${student}">
+            <li th:text="'ID: '+ *{id}"></li>
+            <li th:text="'NAME: '+ *{name}"></li>
+            <li th:text="'EMAIL: '+ *{email}"></li>
+            <li th:text="'CONTACT: '+ *{contact}"></li>
+      </ul>
+</body>
+</html>

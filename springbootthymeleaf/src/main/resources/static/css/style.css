@@ -1,0 +1,12 @@
+.red-heading {
+    color:"red";
+    border: 2px solid red;
+}
+
+.ttt {
+    border : 2px solid red;
+    border-radius : 12px;
+    padding : 20px;
+
+
+}
