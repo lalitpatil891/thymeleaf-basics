@@ -591,4 +591,123 @@ There are **three main ways** to include fragments:
 
 ---
 
+Perfect 👍 — here’s a **clear, corrected, and well-formatted explanation** of the **`th:each` attribute** in Thymeleaf with examples and notes you can directly use in your learning material 👇
+
+---
+
+## 🔁 **The `th:each` Attribute**
+
+### 📘 **Definition**
+
+In **Thymeleaf**, iteration (looping) is done using the **`th:each`** attribute.
+It allows you to **loop through collections or lists** (like a list of students) and **display each item** dynamically on the web page.
+
+---
+
+### 🧩 **Syntax**
+
+```html
+th:each="item : ${collection}"
+```
+
+✅ Here:
+
+* `item` → The loop variable (represents one element in the collection)
+* `collection` → The list or array variable from the model (usually added by the controller)
+
+---
+
+### 💻 **Example: Displaying a List of Students**
+
+**📄 Controller (Java):**
+
+```java
+@GetMapping("/students")
+public String listStudents(Model model) {
+    List<Student> students = List.of(
+        new Student(1, "Lalit Patil", "lalit@gmail.com", "9876543210"),
+        new Student(2, "Pankaj Sharma", "pankaj@gmail.com", "9123456780"),
+        new Student(3, "Riya Mehta", "riya@gmail.com", "9988776655")
+    );
+
+    model.addAttribute("students", students);
+    return "studentList";
+}
+```
+
+---
+
+**📄 Thymeleaf Template (studentList.html):**
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student List</title>
+</head>
+<body>
+  <h2>All Students</h2>
+  
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="student : ${students}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.email}"></td>
+        <td th:text="${student.phone}"></td>
+        <td>
+          <button>Edit</button>
+          <button>Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
+```
+
+✅ **Rendered Output:**
+
+| ID | Name          | Email                                       | Phone      | Action        |
+| -- | ------------- | ------------------------------------------- | ---------- | ------------- |
+| 1  | Lalit Patil   | [lalit@gmail.com](mailto:lalit@gmail.com)   | 9876543210 | Edit / Delete |
+| 2  | Pankaj Sharma | [pankaj@gmail.com](mailto:pankaj@gmail.com) | 9123456780 | Edit / Delete |
+| 3  | Riya Mehta    | [riya@gmail.com](mailto:riya@gmail.com)     | 9988776655 | Edit / Delete |
+
+---
+
+### 💡 **Extra Tip**
+
+You can also access **loop status variables** like index using:
+
+```html
+<tr th:each="student, iterStat : ${students}">
+  <td th:text="${iterStat.index + 1}"></td> <!-- Serial number -->
+  <td th:text="${student.name}"></td>
+</tr>
+```
+
+---
+
+### ✅ **In Short:**
+
+| Attribute    | Purpose                          | Example                           |
+| ------------ | -------------------------------- | --------------------------------- |
+| `th:each`    | Iterates over a collection       | `th:each="student : ${students}"` |
+| `${student}` | Represents one object            | `${student.name}`                 |
+| `iterStat`   | Loop status (index, count, etc.) | `${iterStat.index}`               |
+
+---
+
+
 

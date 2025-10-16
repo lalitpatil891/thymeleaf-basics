@@ -14,4 +14,11 @@ public class PageController {
 
         return "link-expression";
     }
+
+    @GetMapping("/fragment-expressions")
+    public String fragmentExpressionsDemo() {
+
+
+        return "fragment-expressions";
+    }
 }
