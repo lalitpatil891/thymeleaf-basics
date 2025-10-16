@@ -5,7 +5,7 @@
 - [Message Expressions](#-message-expressions-)
 - [Link Expressions](#-link-expressions-)
 - [Fragment Expressions](#-fragment-expressions-)
-
+- [The `th:each` Attribute](#-the-theach-attribute)
 
 ## 🌿 What is **Thymeleaf**?
 
