@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Success</title>
+</head>
+<body>
+<h2 th:text="${message}"></h2>
+
+<h3>Student Details:</h3>
+<p>ID: <span th:text="${student.id}"></span></p>
+<p>Name: <span th:text="${student.name}"></span></p>
+<p>Email: <span th:text="${student.email}"></span></p>
+<p>Contact: <span th:text="${student.contact}"></span></p>
+</body>
+</html>

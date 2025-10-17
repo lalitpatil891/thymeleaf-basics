@@ -9,6 +9,7 @@
 - [The `th:each` Attribute – Status Variable](#-the-theach-attribute--status-variable)
 - [The `th:if` and `th:unless` Conditions](#-the-thif-and-thunless-conditions)
 - [The `th:switch` and `th:case` Attributes](#-the-thswitch-and-thcase-attributes)
+- [Form Handling in Thymeleaf](#-form-handling-in-thymeleaf)
 
 ## 🌿 What is **Thymeleaf**?
 
@@ -1069,6 +1070,143 @@ Student Menu
 
 ---
 
+## 📝 **Form Handling in Thymeleaf**
+
+When building web applications using **Spring Boot + Thymeleaf**, form handling allows you to:
+
+* Display forms bound to model objects.
+* Capture user input.
+* Submit data to a controller.
+* Automatically bind the form fields to a Java object.
+
+---
+
+### 🧩 **Three Important Thymeleaf Attributes**
+
+| Attribute   | Description                                                          | Example                       |
+| ----------- | -------------------------------------------------------------------- | ----------------------------- |
+| `th:action` | Defines the **URL** to which the form will be submitted              | `th:action="@{/saveStudent}"` |
+| `th:object` | Binds the form to a **model object** (like a command object)         | `th:object="${student}"`      |
+| `th:field`  | Binds an individual form field to a **property** of the model object | `th:field="*{name}"`          |
+
+---
+
+### 💻 **Example: Student Registration Form**
+
+#### 1️⃣ **Model Class**
+
+```java
+public class Student {
+    private Long id;
+    private String name;
+    private String email;
+    private String contact;
+
+    // Getters and Setters
+}
+```
+
+---
+
+#### 2️⃣ **Controller**
+
+```java
+@Controller
+public class StudentController {
+
+    // Show the form
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("student", new Student()); // empty object for binding
+        return "register";
+    }
+
+    // Handle form submission
+    @PostMapping("/saveStudent")
+    public String saveStudent(@ModelAttribute("student") Student student, Model model) {
+        // Normally you’d save to DB here
+        model.addAttribute("message", "Student Registered Successfully!");
+        model.addAttribute("student", student);
+        return "success";
+    }
+}
+```
+
+---
+
+#### 3️⃣ **Thymeleaf Form Template — `register.html`**
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Registration</title>
+</head>
+<body>
+  <h2>Student Registration Form</h2>
+
+  <form th:action="@{/saveStudent}" th:object="${student}" method="post">
+    <label>ID:</label>
+    <input type="text" th:field="*{id}" /><br/><br/>
+
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" /><br/><br/>
+
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" /><br/><br/>
+
+    <label>Contact:</label>
+    <input type="text" th:field="*{contact}" /><br/><br/>
+
+    <button type="submit">Register</button>
+  </form>
+</body>
+</html>
+```
+
+---
+
+#### 4️⃣ **Success Page — `success.html`**
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Success</title>
+</head>
+<body>
+  <h2 th:text="${message}"></h2>
+
+  <h3>Student Details:</h3>
+  <p>ID: <span th:text="${student.id}"></span></p>
+  <p>Name: <span th:text="${student.name}"></span></p>
+  <p>Email: <span th:text="${student.email}"></span></p>
+  <p>Contact: <span th:text="${student.contact}"></span></p>
+</body>
+</html>
+```
+
+---
+
+### ✅ **Flow Explanation**
+
+1. `GET /register` → Shows form bound to empty `Student` object.
+2. User fills out the form and clicks **Submit**.
+3. `POST /saveStudent` → Form data automatically binds to the `Student` object.
+4. Controller processes and returns a **success page**.
+
+---
+
+### 💡 **Quick Tips**
+
+* Always match field names in your HTML with the variable names in your model class.
+* `th:object` + `th:field` handle automatic binding — no need for manual parsing.
+* Use `@ModelAttribute` in your controller to receive the form data.
+* You can use `th:errors` to display validation errors (next step after basic forms).
+
+---
 
 
 

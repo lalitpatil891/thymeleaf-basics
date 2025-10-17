@@ -4,12 +4,15 @@ import com.lp.thymeleaf.entity.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class StudentController {
+
 
     @GetMapping("/students")
     public String listStudent(Model model){
@@ -41,6 +44,22 @@ public class StudentController {
     @GetMapping("/message-expression")
     public String showMessageExpression(Model model) {
         return "message-expression";
+    }
+
+    // Show the form
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("student", new Student()); // empty object for binding
+        return "register";
+    }
+
+    // Handle form submission
+    @PostMapping("/saveStudent")
+    public String saveStudent(@ModelAttribute("student") Student student, Model model) {
+        // Normally you’d save to DB here
+        model.addAttribute("message", "Student Registered Successfully!");
+        model.addAttribute("student", student);
+        return "success";
     }
 
 }
