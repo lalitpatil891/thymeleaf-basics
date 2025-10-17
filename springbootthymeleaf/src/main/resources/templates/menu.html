@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>th:switch Demo</title>
+</head>
+<body>
+<h2 th:text="'User Role: ' + ${role}"></h2>
+
+<div th:switch="${role}">
+
+    <!-- Admin Role -->
+    <div th:case="'Admin'">
+        <h3>Admin Menu</h3>
+        <ul>
+            <li><a th:href="@{/manageUsers}">Manage Users</a></li>
+            <li><a th:href="@{/viewReports}">View Reports</a></li>
+        </ul>
+    </div>
+
+    <!-- Student Role -->
+    <div th:case="'Student'">
+        <h3>Student Menu</h3>
+        <ul>
+            <li><a th:href="@{/myCourses}">My Courses</a></li>
+            <li><a th:href="@{/grades}">View Grades</a></li>
+        </ul>
+    </div>
+
+    <!-- Teacher Role -->
+    <div th:case="'Teacher'">
+        <h3>Teacher Menu</h3>
+        <ul>
+            <li><a th:href="@{/students}">View Students</a></li>
+            <li><a th:href="@{/schedule}">My Schedule</a></li>
+        </ul>
+    </div>
+
+    <!-- Default Case -->
+    <div th:case="*">
+        <p>No menu available for this role.</p>
+    </div>
+
+</div>
+</body>
+</html>

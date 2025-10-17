@@ -8,6 +8,7 @@
 - [The `th:each` Attribute](#-the-theach-attribute)
 - [The `th:each` Attribute – Status Variable](#-the-theach-attribute--status-variable)
 - [The `th:if` and `th:unless` Conditions](#-the-thif-and-thunless-conditions)
+- [The `th:switch` and `th:case` Attributes](#-the-thswitch-and-thcase-attributes)
 
 ## 🌿 What is **Thymeleaf**?
 
@@ -945,6 +946,128 @@ You can also use `th:if` with boolean model attributes:
 
 ---
 
+## 🔄 **The `th:switch` and `th:case` Attributes**
+
+### 📘 **Definition**
+
+Thymeleaf provides **`th:switch`** and **`th:case`** to handle **multiple conditional branches** — similar to Java’s `switch` statement.
+
+It’s useful when you have **different outputs for multiple possible values** of a variable.
+
+---
+
+### 🧩 **Syntax**
+
+```html
+<div th:switch="${variable}">
+    <p th:case="'value1'">Output if variable == value1</p>
+    <p th:case="'value2'">Output if variable == value2</p>
+    <p th:case="*">Default output (like `default` in Java)</p>
+</div>
+```
+
+✅ `th:switch` → defines the variable to test
+✅ `th:case` → defines each matching condition
+✅ `th:case="*"` → acts as the **default case**
+
+---
+
+### 💻 **Example: Display Menu Based on Role**
+
+**Controller (Java):**
+
+```java
+@GetMapping("/menu")
+public String showMenu(Model model) {
+    model.addAttribute("role", "Admin");
+    return "menu";
+}
+```
+
+---
+
+**Template (menu.html):**
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>th:switch Demo</title>
+</head>
+<body>
+  <h2 th:text="'User Role: ' + ${role}"></h2>
+
+  <div th:switch="${role}">
+    
+    <!-- Admin Role -->
+    <div th:case="'Admin'">
+      <h3>Admin Menu</h3>
+      <ul>
+        <li><a th:href="@{/manageUsers}">Manage Users</a></li>
+        <li><a th:href="@{/viewReports}">View Reports</a></li>
+      </ul>
+    </div>
+
+    <!-- Student Role -->
+    <div th:case="'Student'">
+      <h3>Student Menu</h3>
+      <ul>
+        <li><a th:href="@{/myCourses}">My Courses</a></li>
+        <li><a th:href="@{/grades}">View Grades</a></li>
+      </ul>
+    </div>
+
+    <!-- Teacher Role -->
+    <div th:case="'Teacher'">
+      <h3>Teacher Menu</h3>
+      <ul>
+        <li><a th:href="@{/studentsList}">View Students</a></li>
+        <li><a th:href="@{/schedule}">My Schedule</a></li>
+      </ul>
+    </div>
+
+    <!-- Default Case -->
+    <div th:case="*">
+      <p>No menu available for this role.</p>
+    </div>
+
+  </div>
+</body>
+</html>
+```
+
+---
+
+### ✅ **Output (If `role = "Admin"`)**
+
+```
+User Role: Admin
+
+Admin Menu
+• Manage Users
+• View Reports
+```
+
+### ✅ **Output (If `role = "Student"`)**
+
+```
+User Role: Student
+
+Student Menu
+• My Courses
+• View Grades
+```
+
+---
+
+### 💡 **Tips**
+
+* You can also nest `th:if` or `th:each` inside cases for more complex logic.
+* Always wrap cases inside one parent element with `th:switch`.
+* Use `th:case="*"` as a **fallback** for unexpected values.
+
+---
 
 
 

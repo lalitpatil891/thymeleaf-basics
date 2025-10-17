@@ -20,6 +20,14 @@ public class UserController {
         return "dashboard";
     }
 
+    //The th:switch and th:case Attributes
+    @GetMapping("/menu")
+    public String showMenu(Model model){
+        model.addAttribute("role", "");
+        return "menu";
+    }
+
+
 
 
 
