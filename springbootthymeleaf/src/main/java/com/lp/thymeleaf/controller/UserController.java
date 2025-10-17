@@ -11,9 +11,17 @@ public class UserController {
     public String showDashboard(Model model){
         //Consider you are getting user info after log in.
 
-        model.addAttribute("userName" , "Lalit Patil");
-        model.addAttribute("role", "admin");
+      //  model.addAttribute("userName" , "Lalit Patil");
+        //model.addAttribute("role", "Admin");
+
+        model.addAttribute("userName" , "Sunil Bhoi");
+        model.addAttribute("role", "User");
 
         return "dashboard";
     }
+
+
+
+
+
 }

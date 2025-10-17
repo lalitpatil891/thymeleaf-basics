@@ -7,6 +7,7 @@
 - [Fragment Expressions](#-fragment-expressions-)
 - [The `th:each` Attribute](#-the-theach-attribute)
 - [The `th:each` Attribute – Status Variable](#-the-theach-attribute--status-variable)
+- [The `th:if` and `th:unless` Conditions](#-the-thif-and-thunless-conditions)
 
 ## 🌿 What is **Thymeleaf**?
 
@@ -830,8 +831,121 @@ You can use the status variable to highlight alternate rows:
 <tr th:each="student, stat : ${students}"
     th:class="${stat.even} ? 'even-row' : 'odd-row'">
 ```
+---
+
+## ⚖️ **The `th:if` and `th:unless` Conditions**
+
+### 📘 **Definition**
+
+Thymeleaf allows you to **conditionally display content** in your HTML template using `th:if` and `th:unless`.
+
+These attributes help you render elements **only when certain conditions are met**, similar to `if` and `else` statements in Java.
 
 ---
+
+### 🧩 **Syntax**
+
+```html
+<div th:if="${condition}">
+    <p>True condition related content.</p>
+</div>
+
+<div th:unless="${condition}">
+    <p>False condition related content.</p>
+</div>
+```
+
+✅ **`th:if`** → Displays content **only when** the condition is **true**
+✅ **`th:unless`** → Displays content **only when** the condition is **false**
+
+---
+
+### 💻 **Example 1: Based on Logged-in User Role**
+
+**Controller (Java):**
+
+```java
+@GetMapping("/dashboard")
+public String showDashboard(Model model) {
+    model.addAttribute("userName", "Pankaj Sharma");
+    model.addAttribute("role", "Admin");
+    return "dashboard";
+}
+```
+
+**Template (dashboard.html):**
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+</head>
+<body>
+  <h2 th:text="'Welcome ' + ${userName} + ': Role: ' + ${role}"></h2>
+
+  <nav>
+    <!-- Admin specific menu -->
+    <div th:if="${role == 'Admin'}">
+      <h3>Admin Menu</h3>
+      <ul>
+        <li><a href="#">Manage Users</a></li>
+        <li><a href="#">View Reports</a></li>
+        <li><a href="#">System Settings</a></li>
+      </ul>
+    </div>
+
+    <!-- Normal user menu -->
+    <div th:unless="${role == 'Admin'}">
+      <h3>User Menu</h3>
+      <ul>
+        <li><a href="#">My Profile</a></li>
+        <li><a href="#">My Orders</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+  </nav>
+</body>
+</html>
+```
+
+---
+
+### ✅ **Output (If Admin Logs In):**
+
+```
+Welcome Pankaj Sharma: Role: Admin
+Admin Menu
+• Manage Users
+• View Reports
+• System Settings
+```
+
+### ✅ **Output (If Normal User Logs In):**
+
+```
+Welcome Pankaj Sharma: Role: User
+User Menu
+• My Profile
+• My Orders
+• Support
+```
+
+---
+
+### 💡 **Tip**
+
+You can also use `th:if` with boolean model attributes:
+
+```html
+<p th:if="${isActive}">Account is Active</p>
+<p th:unless="${isActive}">Account is Inactive</p>
+```
+
+---
+
+
 
 
 

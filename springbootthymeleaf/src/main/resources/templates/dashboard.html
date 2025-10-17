@@ -9,9 +9,32 @@
     <h1>Dashboard</h1>
 
     <div>
-        <p th:text="'User Name :'+ ${userName}"></p>
-        <p th:text="'User role :'+ ${role}"></p>
+<!--        <p th:text="'User Name :'+ ${userName}"></p>-->
+<!--        <p th:text="'User role :'+ ${role}"></p>-->
 
+        <h2 th:text="'Welcome ' + ${userName} + ': Role: ' + ${role}"></h2>
+
+        <nav>
+            <!-- Admin specific menu -->
+            <div th:if="${role == 'Admin'}">
+                <h3>Admin Menu</h3>
+                <ul>
+                    <li><a th:href="@{/profile}">Manage Users</a></li>
+                    <li><a th:href="@{/students}">Manage Users</a></li>
+                    <li><a th:href="@{/fragment-expressions}">Manage Users</a></li>
+                </ul>
+            </div>
+
+            <!-- Normal user menu -->
+            <div th:unless="${role=='Admin'}">
+                <h3>User Menu</h3>
+                <ul>
+                    <li><a th:href="@{/profile}">My Profile</a></li>
+                    <li><a th:href="@{/students}">My Orders</a></li>
+                    <li><a th:href="@{/fragment-expressions}">Support</a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
 </body>
 </html>
