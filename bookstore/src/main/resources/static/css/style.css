@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+body {
+	background-color: #f8f9fa;
+}
+
+.navbar {
+	padding: 1rem 2rem;
+}
+
+.navbar-brand {
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.hero-section {
+	background:
+		url('https://images.unsplash.com/photo-1512820790803-83ca734da794')
+		no-repeat center center/cover;
+	color: white;
+	height: 80vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.hero-section h1 {
+	font-size: 3rem;
+	font-weight: bold;
+}
+
+.hero-section p {
+	font-size: 1.2rem;
+	max-width: 600px;
+}
+
+.btn-custom {
+	background-color: #28a745;
+	color: white;
+	border: none;
+}
+
+.btn-custom:hover {
+	background-color: #218838;
+}
+
+footer {
+	background-color: #212529;
+	color: white;
+	padding: 20px 0;
+	text-align: center;
+	margin-top: 50px;
+}
+
+.delete-icon {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  }
+
+  .delete-icon:hover {
+    color: #AD0000; /* changes color when hovered */
+  }
+  
+  
+  .edit-icon {
+  color: darkblue;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  }
+
+  .edit-icon:hover {
+    color: dark; /* changes color when hovered */
+  }
+  
+  
+  footer {
+  margin-top: auto;
+  background-color: #212529;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+}

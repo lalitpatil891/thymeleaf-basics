@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.com">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+        crossorigin="anonymous">
+
+  <title>Book Store</title>
+
+  
+</head>
+<body>
+
+  <!-- Nav Bar  -->
+  <!--- Include Header Fragment --->
+  <div th:replace="~{fragments/header :: header}"></div>
+
+
+  <!-- Hero Section -->
+  <section class="hero-section text-center">
+    <h1>Welcome to BookVerse</h1>
+    <p>Your one-stop online bookstore where stories come alive. Discover, read, and grow with every page!</p>
+    <a href="#" class="btn btn-custom mt-3 px-4 py-2">Shop Now</a>
+  </section>
+
+  <!-- About Section -->
+  <div class="container my-5 text-center">
+    <h2>About Us</h2>
+    <p class="text-muted mx-auto" style="max-width: 700px;">
+      At <strong>BookVerse</strong>, we believe that books are more than pages — they’re journeys, emotions, and gateways to knowledge. 
+      Our mission is to connect readers with their next favorite book, offering a curated collection across genres at affordable prices.
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 BookVerse | All Rights Reserved</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+          crossorigin="anonymous"></script>
+</body>
+</html>
